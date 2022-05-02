@@ -1,0 +1,26 @@
+#home{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#home img{
+    width:300px;
+    margin-bottom: 50px;
+}
+#home a.play{
+    width:200px;
+    padding:12px;
+    border-radius: 20px;
+    background-color: #34a24a;
+    color:#fff;
+    border: none;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+}
+#home a.statistics{
+    margin-top: 51px;
+    font-size: 28px;
+    border: 1px solid #aba7a7;
+    padding : 6px 15px;
+}

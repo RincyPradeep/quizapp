@@ -1,0 +1,35 @@
+#header{
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#header div.nav-left{
+    
+}
+#header div.nav-left h1 a img{
+    width: 150px;
+}
+#header div.nav-right{
+    
+}
+#header div.nav-right ul{
+    display: flex;
+    align-items: center;
+}
+#header div.nav-right ul li h3{
+
+}
+#header div.nav-right ul li h3.logoutbtn{
+    cursor: pointer;
+}
+#header div.nav-right ul li a{
+    font-size: 18px;
+    font-weight: 700;
+}
+#header div.nav-right ul li h3.total-price{
+    margin-left: 30px;
+    background-color: #0cbfd3;
+    padding: 10px 50px;
+    border-radius: 30px;
+}

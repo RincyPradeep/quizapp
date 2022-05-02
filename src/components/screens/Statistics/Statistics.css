@@ -1,0 +1,34 @@
+#statistics{
+    text-align: center;
+}
+#statistics div.content{
+    width:500px;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    padding:30px;
+    background-color: #fff;
+}
+#statistics a{
+    margin-left: 80%;
+}
+#statistics a i.close-btn{
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+#statistics h1{
+    margin-bottom: 40px;
+    font-size: 32px;
+} 
+#statistics div.topics{
+    width:400px;
+    margin:30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#statistics div.topics h3{
+
+}
+#statistics div.topics h3 i{
+    margin-right: 10px;
+}

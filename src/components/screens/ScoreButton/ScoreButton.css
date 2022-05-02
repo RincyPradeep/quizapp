@@ -1,0 +1,23 @@
+#score button{
+    width: 400px;
+    margin: 3px auto 0;
+    outline:#fff;
+    border:none;
+    padding: 8px 24px;
+    background: linear-gradient(to right, #00f260, #0575e6);
+    border-radius: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+}
+#score button span{
+    color:#fff;
+}
+#score button.top{
+    background: linear-gradient(to right, #56ab2f, #a8e063);
+    width: 500px;
+}
+#score button.active{
+    background: linear-gradient(to right, #000000, #0f9b0f); 
+}

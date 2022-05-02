@@ -1,0 +1,32 @@
+.overlay{
+    width:100vw;
+    height:100vh;
+    background-color: rgba(0,0,0);
+    padding:50px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+#score{
+    width: 500px;
+}
+#score .scores{
+    display: flex;
+    flex-direction: column;
+}
+#score div.bottom-buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+#score div.bottom-buttons button.continue-btn{
+    display: block;
+    width:200px;
+    background-color: #34a24a !important;
+    color:#fff;
+    text-align: center;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+}

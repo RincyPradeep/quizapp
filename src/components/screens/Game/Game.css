@@ -1,0 +1,78 @@
+#game{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#game div.top{
+    width: 100%;
+    text-align: center;
+}
+#game button.leave-btn{
+    width:100px;
+    background-color: rgb(197, 4, 4);
+    color:#fff;
+    text-align: center;
+    font-weight: 500;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    border:none;
+    margin-left: auto;
+}
+#game div.question{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+#game div.question h2{
+    width:100%;
+    background-color: #055776;
+    color:#fff;
+    padding:10px;
+    margin:100px auto;
+    font-size: 26px;
+    border-radius: 40px;
+    text-align: center;
+}
+#game div.question h3{
+    font-size: 20px;
+}
+#game div.question div.answers button{
+    width: 40%;
+    font-size: 18px;
+    font-weight: 600;
+    padding:10px 20px;
+    border-radius: 20px;
+    background-color: #055776;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+#game div.question div.answers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+#game div.bottom{
+
+}
+#game div.bottom button{
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    border:none;
+    background-color: #0cbfd3;
+    margin-right: 30px;
+    font-size: 18px;
+    font-weight: 800;
+    cursor:pointer;
+}
+#game div.bottom button i{
+    font-size: 28px;
+}
+#game div.bottom button:last-child{
+    margin-right: 0;
+}
