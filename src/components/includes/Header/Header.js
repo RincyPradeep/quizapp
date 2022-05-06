@@ -1,15 +1,22 @@
-import React,{useContext} from 'react'
+import React,{useContext, useEffect} from 'react'
 import {Link} from 'react-router-dom';
 
 import './Header.css' 
 import logo from "../../../assets/images/logo.png";
 
 import AuthContext from '../../../context/AuthContext';
+import StatisticsContext from "../../../context/StatisticsContext";
 
 
 const Header = () => {
 
   let {user, logoutUser} = useContext(AuthContext)
+  let {statistics,getStatistics} = useContext(StatisticsContext)
+
+  useEffect(()=>{
+    if(user)
+    getStatistics(user.user_id)
+  },[user])
 
   return (
     <section id="header" className='wrapper'>
@@ -28,7 +35,7 @@ const Header = () => {
                 <h3>{user.username}</h3>
               </li>
               <li>
-                <h3 className='total-price'>&#x20B9; 0</h3>
+                <h3 className='total-price'>&#x20B9; {statistics.money_earned}</h3>
               </li>
               <li>
                 <h3 className="logoutbtn" onClick={logoutUser}>Logout</h3>

@@ -6,10 +6,10 @@ import ScoreButton from '../ScoreButton/ScoreButton'
 const Score = ({setshowScoreBoard,questionNumber}) => {
 
   useEffect(() => {
-    const interval = setInterval(() => {
+    const score_interval = setInterval(() => {
       setshowScoreBoard(false)
     }, 2000);
-    return () => clearInterval(interval);
+    return () => clearInterval(score_interval);
   }, []);
 
   return (

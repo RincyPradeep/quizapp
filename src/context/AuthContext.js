@@ -87,7 +87,6 @@ export const AuthProvider = ({children})=>{
         })
 
         let data = await response.json()
-        
         if (response.status === 200){
             setAuthTokens(data)
             setUser(jwt_decode(data.access))
@@ -100,26 +99,6 @@ export const AuthProvider = ({children})=>{
             setLoading(false)
         }
     }
-
-
-    // const getProfile = (userid) =>{
-    //     axios.get(`http://localhost:8000/api/v1/auth/get_profile/${userid}/`,
-    //     {
-    //      headers : {
-    //        'Authorization':'Bearer ' + String(authTokens.access)
-    //      },           
-    //    }).then((response)=>{
-    //      if (response.data.status_code === 6000){
-    //          let profile = response.data.data;
-    //          setName(profile.name)
-    //          setAddress(profile.address)
-    //          setPincode(profile.pincode)
-    //          setMobile(profile.mobile)
-    //      }
-    //        }).catch(err=>{
-    //          alert(err)
-    //      })
-    //  } 
 
     let contextData = {
         user : user,
@@ -143,12 +122,12 @@ export const AuthProvider = ({children})=>{
             updateToken()
         }
 
-        let fourMinutes = 1000 * 60 * 4
+        let tenMinutes = 1000 * 60 * 10
         let interval =  setInterval(()=> {
             if(authTokens){
                 updateToken()
             }
-        }, fourMinutes)
+        }, tenMinutes)
         return ()=> clearInterval(interval)
     }, [authTokens, loading])
 

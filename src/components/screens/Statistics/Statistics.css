@@ -8,10 +8,10 @@
     padding:30px;
     background-color: #fff;
 }
-#statistics a{
-    margin-left: 80%;
+#statistics div.content a{
+    margin-left: 90%;
 }
-#statistics a i.close-btn{
+#statistics div.content a i.close-btn{
     margin-bottom: 20px;
     font-size: 28px;
 }

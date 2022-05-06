@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState,useEffect,useContext } from 'react'
 import {useNavigate} from 'react-router-dom';
 
 import axios from 'axios'
@@ -7,13 +7,31 @@ import sweetalert from 'sweetalert'
 import './Game.css'
 import Score from '../Score/Score';
 
+import AuthContext from '../../../context/AuthContext';
+import StatisticsContext from "../../../context/StatisticsContext";
+
 
 const Game = () => {
   let question
 
+  let {user,authTokens} = useContext(AuthContext)
+  let {getStatistics} = useContext(StatisticsContext)
+
   const [questions,setQuestions] = useState([])
   const [questionNumber,setQuestionNumber] = useState(1)
   const [showScoreBoard,setshowScoreBoard] = useState(false)
+  const [leave,setLeave] = useState(false)
+  const [finish,setFinish] = useState(false)
+  const [wrong,setWrong] = useState(false)
+
+  const [questionsAnswered,setQuestionsAnswered] = useState(0)
+  const [correctAnswers,setCorrectAnswers] = useState(0)
+  const [wrongAnswers,setWrongAnswers] = useState(0)
+  const [correctPercentage,setCorrectPercentage] = useState(0)
+  const [gamesPlayed,setGamesPlayed] = useState(0)
+  const [gamesWon,setGamesWon] = useState(0)
+  const [winRate,setWinRate] = useState(0)
+  const [moneyEarned,setMoneyEarned] = useState(0)  
 
   const navigate = useNavigate();
 
@@ -83,25 +101,83 @@ const Game = () => {
     }
   }
 
-  const checkAnswer =(selected_option) =>{
+  const updateStatistics = () =>{
+    axios.post(`http://localhost:8000/api/v1/quizzes/change-statistics/${user.user_id}/`,{
+       "questions_answered" : questionsAnswered,"correct_answers" : correctAnswers, "wrong_answers" : wrongAnswers,
+       "correct_percentage" : correctPercentage,"games_played" : gamesPlayed,"games_won": gamesWon,
+       "win_rate" : winRate, "money_earned" : moneyEarned
+            },{
+            headers : {
+                'Authorization':'Bearer ' + String(authTokens.access)
+            },           
+        }).then(response=>{
+          console.log("UPDATE STATISTICS RESPONSE:",response)
+        }).catch(error=>{
+          alert(error)
+        })
+  }
+
+  const checkAnswer = (selected_option) =>{
+    setQuestionsAnswered((prev)=>prev+1)
     if(selected_option === question.answer){
-      setshowScoreBoard(true)     
-      setQuestionNumber(questionNumber+1)
       
-      if(questionNumber >= 5){
-      sweetalert({title: "You won the game",
-                text: `You earned Rs. ${getAnswerPrice()}`,
-                icon: "success"})
-      navigate("/")
+      setMoneyEarned(getAnswerPrice())
+      setCorrectAnswers((prev)=>prev+1) 
+      setshowScoreBoard(true)           
+       
+      if(questionNumber < 5){
+        setQuestionNumber(questionNumber+1)
+      }else{
+        setFinish(true)
+        setGamesPlayed(1)
+        setGamesWon(1)
       }
+    }else{
+      setWrong(true)
+      setGamesPlayed(1)
+      setWrongAnswers(1)
+      setMoneyEarned(0)
     }
-    else{
+  }  
+
+  const leaveGame =() =>{
+    setQuestionNumber((prev)=>prev-1)
+    setLeave(true)
+    setGamesPlayed(1)
+  }
+
+  useEffect(()=>{
+    if(finish){
+      sweetalert({title: "You won the game",
+      text: `You earned Rs. ${getAnswerPrice()}`,
+      icon: "success"})
+      if(user){
+        updateStatistics()
+      }
+      getStatistics(user.user_id)
+      navigate("/")
+    }
+    if(wrong){
       sweetalert({title: "You lost the game",
                   text: "The Answer is wrong!",
                   icon: "error"})
+      
+      if(user){
+        updateStatistics()
+        }
       navigate("/")
     }
-  }
+    if(leave){
+      sweetalert({title: "Good Decision",
+      text: `You earned Rs. ${getAnswerPrice()}`,
+      icon: "success"})
+      if(user){
+        updateStatistics()
+      }
+      getStatistics(user.user_id)
+      navigate("/")
+    }
+  },[finish,leave,wrong])
 
   useEffect(() => {
     getQuestions() 
@@ -112,7 +188,7 @@ const Game = () => {
       <div className='top'>
         Timer...
       </div>
-      <button className='leave-btn' onClick={()=> navigate("/")}>LEAVE</button>
+      <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
       {getSingleQuestion()}   
       {showScoreBoard && <Score setshowScoreBoard={setshowScoreBoard} questionNumber={questionNumber} />}
       <div className='bottom'>
