@@ -12,7 +12,7 @@
 }
 #score .scores{
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
 }
 #score div.bottom-buttons{
     display: flex;

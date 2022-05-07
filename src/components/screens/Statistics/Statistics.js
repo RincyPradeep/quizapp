@@ -19,7 +19,6 @@ const Statistics = () => {
 
   return (
     <section id="statistics" className='wrapper'>        
-      {/* <Link to="/"><i className="fa-solid fa-circle-xmark close-btn"></i></Link> */}
       <div className='content'>
       <Link to="/"><i className="fa-solid fa-circle-xmark close-btn"></i></Link>
 
@@ -51,7 +50,7 @@ const Statistics = () => {
         </div>
         <div className='topics'>
           <h3><i className="fa-solid fa-medal"></i> Win rate</h3>
-          <h3>{statistics.win_rate}</h3>
+          <h3>{statistics.win_rate}%</h3>
         </div>
         <div className='topics'>
           <h3><i className="fa-solid fa-sack-dollar"></i> Money earned</h3>

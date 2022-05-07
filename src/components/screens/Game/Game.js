@@ -19,6 +19,7 @@ const Game = () => {
 
   const [questions,setQuestions] = useState([])
   const [questionNumber,setQuestionNumber] = useState(1)
+  const [scores,setScores] = useState([])
   const [showScoreBoard,setshowScoreBoard] = useState(false)
   const [leave,setLeave] = useState(false)
   const [finish,setFinish] = useState(false)
@@ -27,59 +28,34 @@ const Game = () => {
   const [questionsAnswered,setQuestionsAnswered] = useState(0)
   const [correctAnswers,setCorrectAnswers] = useState(0)
   const [wrongAnswers,setWrongAnswers] = useState(0)
-  const [correctPercentage,setCorrectPercentage] = useState(0)
   const [gamesPlayed,setGamesPlayed] = useState(0)
   const [gamesWon,setGamesWon] = useState(0)
-  const [winRate,setWinRate] = useState(0)
   const [moneyEarned,setMoneyEarned] = useState(0)  
 
   const navigate = useNavigate();
 
   const getQuestions = () =>{
     axios.get('http://localhost:8000/api/v1/quizzes/').then((response)=>{
-      console.log("RESPONSE:",response.data)
       setQuestions(response.data);      
     }).catch(err=>{
       alert(err)
   })
   }
 
+  const getScores = ()=>{
+    axios.get('http://localhost:8000/api/v1/quizzes/scores/').then((response)=>{
+      setScores(response.data);      
+    }).catch(err=>{
+      alert(err)
+  })
+  }
+
   const getAnswerPrice = ()=>{
-    let price;
-    switch (questionNumber){
-      case 1: price = 500;
-              break;
-      case 2: price = 1000;
-              break;
-      case 3: price = 2000;
-              break;
-      case 4: price = 3000;
-              break;
-      case 5: price = 5000;
-              break;
-      case 6: price = 7500;
-              break;
-      case 7: price = 10000;
-              break;
-      case 8: price = 12500;
-              break;
-      case 9: price = 15000;
-              break;
-      case 10: price = 25000;
-              break;
-      case 11: price = 50000;
-              break;
-      case 12: price = 100000;
-              break;
-      case 13: price = 250000;
-              break;
-      case 14: price = 500000;
-              break;
-      case 15: price = 1000000;
-              break;
-      default : price = 0;
-    }
-    return (price)
+    var result = scores.find(obj => {
+      return obj.number === questionNumber
+    })
+    if(result)
+      return(result.score)
   }
 
   const getSingleQuestion = () =>{
@@ -103,15 +79,15 @@ const Game = () => {
 
   const updateStatistics = () =>{
     axios.post(`http://localhost:8000/api/v1/quizzes/change-statistics/${user.user_id}/`,{
-       "questions_answered" : questionsAnswered,"correct_answers" : correctAnswers, "wrong_answers" : wrongAnswers,
-       "correct_percentage" : correctPercentage,"games_played" : gamesPlayed,"games_won": gamesWon,
-       "win_rate" : winRate, "money_earned" : moneyEarned
+       "questions_answered" : questionsAnswered,"correct_answers" : correctAnswers, 
+       "wrong_answers" : wrongAnswers,"games_played" : gamesPlayed,
+       "games_won": gamesWon,"money_earned" : moneyEarned
             },{
             headers : {
                 'Authorization':'Bearer ' + String(authTokens.access)
             },           
         }).then(response=>{
-          console.log("UPDATE STATISTICS RESPONSE:",response)
+          console.log("UPDATE STATISTICS RESPONSE:",response.data)
         }).catch(error=>{
           alert(error)
         })
@@ -125,7 +101,7 @@ const Game = () => {
       setCorrectAnswers((prev)=>prev+1) 
       setshowScoreBoard(true)           
        
-      if(questionNumber < 5){
+      if(questionNumber < scores.length){
         setQuestionNumber(questionNumber+1)
       }else{
         setFinish(true)
@@ -153,8 +129,8 @@ const Game = () => {
       icon: "success"})
       if(user){
         updateStatistics()
+        getStatistics(user.user_id)
       }
-      getStatistics(user.user_id)
       navigate("/")
     }
     if(wrong){
@@ -164,7 +140,8 @@ const Game = () => {
       
       if(user){
         updateStatistics()
-        }
+        getStatistics(user.user_id)
+      }
       navigate("/")
     }
     if(leave){
@@ -173,14 +150,15 @@ const Game = () => {
       icon: "success"})
       if(user){
         updateStatistics()
+        getStatistics(user.user_id)
       }
-      getStatistics(user.user_id)
       navigate("/")
     }
   },[finish,leave,wrong])
 
   useEffect(() => {
-    getQuestions() 
+    getQuestions()
+    getScores() 
   },[])
 
   return (
@@ -190,7 +168,7 @@ const Game = () => {
       </div>
       <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
       {getSingleQuestion()}   
-      {showScoreBoard && <Score setshowScoreBoard={setshowScoreBoard} questionNumber={questionNumber} />}
+      {showScoreBoard && <Score setshowScoreBoard={setshowScoreBoard} questionNumber={questionNumber} scores={scores}/>}
       <div className='bottom'>
         <button>50 : 50</button>
         <button><i className="fa-solid fa-arrows-rotate"></i></button>
