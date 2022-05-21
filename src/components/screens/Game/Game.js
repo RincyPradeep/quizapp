@@ -5,25 +5,34 @@ import axios from 'axios'
 import sweetalert from 'sweetalert'
 
 import './Game.css'
+import Questionaire from '../Questionaire/Questionaire';
 import Score from '../Score/Score';
+import Loader from '../Loader/Loader';
 
 import AuthContext from '../../../context/AuthContext';
 import StatisticsContext from "../../../context/StatisticsContext";
 
 
 const Game = () => {
-  let question
+
+  let timer_one,timer_two,timer_three
 
   let {user,authTokens} = useContext(AuthContext)
   let {getStatistics} = useContext(StatisticsContext)
 
+  const [loading,setLoading] = useState(true)
+  const [istimeUp,setIsTimeUp] = useState(false)
+
   const [questions,setQuestions] = useState([])
   const [questionNumber,setQuestionNumber] = useState(1)
   const [scores,setScores] = useState([])
-  const [showScoreBoard,setshowScoreBoard] = useState(false)
+  
   const [leave,setLeave] = useState(false)
   const [finish,setFinish] = useState(false)
   const [wrong,setWrong] = useState(false)
+
+  const [correct,setCorrect] = useState(false)
+  const [showAnswer,setShowAnswer] = useState(false)
 
   const [questionsAnswered,setQuestionsAnswered] = useState(0)
   const [correctAnswers,setCorrectAnswers] = useState(0)
@@ -35,8 +44,10 @@ const Game = () => {
   const navigate = useNavigate();
 
   const getQuestions = () =>{
-    axios.get('http://localhost:8000/api/v1/quizzes/').then((response)=>{
-      setQuestions(response.data);      
+    axios.get('http://localhost:8000/api/v1/quizzes/').then((response)=>{ 
+      let list = response.data
+      list = list.sort(() => Math.random() - 0.5)  
+      setQuestions(list)
     }).catch(err=>{
       alert(err)
   })
@@ -44,7 +55,7 @@ const Game = () => {
 
   const getScores = ()=>{
     axios.get('http://localhost:8000/api/v1/quizzes/scores/').then((response)=>{
-      setScores(response.data);      
+      setScores(response.data);     
     }).catch(err=>{
       alert(err)
   })
@@ -56,25 +67,8 @@ const Game = () => {
     })
     if(result)
       return(result.score)
-  }
-
-  const getSingleQuestion = () =>{
-    question =  questions[Math.floor(Math.random()*questions.length)];
-    
-    if (question){
-      return(
-        <div className='question'>
-          <h2 id="price">&#x20B9; {getAnswerPrice()}</h2>
-          <h3>{questionNumber}. {question.question}</h3>
-          <div className='answers'>
-            <button onClick={()=>checkAnswer(question.option_one)} id="opt1" >A. {question.option_one}</button>
-            <button onClick={()=>checkAnswer(question.option_two)} id="opt2" >B. {question.option_two}</button>
-            <button onClick={()=>checkAnswer(question.option_three)} id="opt3" >C. {question.option_three}</button>
-            <button onClick={()=>checkAnswer(question.option_four)} id="opt4" >D. {question.option_four}</button>
-          </div>
-        </div> 
-      )
-    }
+    else
+      return(0)
   }
 
   const updateStatistics = () =>{
@@ -87,33 +81,44 @@ const Game = () => {
                 'Authorization':'Bearer ' + String(authTokens.access)
             },           
         }).then(response=>{
-          console.log("UPDATE STATISTICS RESPONSE:",response.data)
+          console.log("STATISTICS UPDATED")
         }).catch(error=>{
           alert(error)
         })
   }
 
-  const checkAnswer = (selected_option) =>{
+  const checkAnswer = (selected_option,answer,opt) =>{
     setQuestionsAnswered((prev)=>prev+1)
-    if(selected_option === question.answer){
-      
-      setMoneyEarned(getAnswerPrice())
-      setCorrectAnswers((prev)=>prev+1) 
-      setshowScoreBoard(true)           
-       
-      if(questionNumber < scores.length){
-        setQuestionNumber(questionNumber+1)
-      }else{
-        setFinish(true)
-        setGamesPlayed(1)
-        setGamesWon(1)
-      }
-    }else{
-      setWrong(true)
-      setGamesPlayed(1)
-      setWrongAnswers(1)
-      setMoneyEarned(0)
+    if(selected_option === answer){
+      setCorrect(true)
+      timer_one = setTimeout(()=>{
+        setMoneyEarned(getAnswerPrice())
+        setCorrectAnswers((prev)=>prev+1)           
+         
+        if(questionNumber < scores.length){
+          setQuestionNumber(questionNumber+1)
+        }else{
+          timer_two = setTimeout(()=>{
+          setFinish(true)
+          setGamesPlayed(1)
+          setGamesWon(1)
+          },2000)
+        }
+      },1000)
     }
+      else{
+        setShowAnswer(true)
+        document.getElementById(opt).style.backgroundColor="rgb(181, 3, 3)"
+        document.getElementById(opt).style.color="#fff"
+        let element=document.getElementById(opt)
+        element.getElementsByTagName("span")[0].style.color="#fff"
+        timer_three = setTimeout(()=>{
+          setWrong(true)
+          setGamesPlayed(1)
+          setWrongAnswers(1)
+          setMoneyEarned(0)
+        },2000)
+      }    
   }  
 
   const leaveGame =() =>{
@@ -124,20 +129,20 @@ const Game = () => {
 
   useEffect(()=>{
     if(finish){
-      sweetalert({title: "You won the game",
-      text: `You earned Rs. ${getAnswerPrice()}`,
-      icon: "success"})
-      if(user){
-        updateStatistics()
-        getStatistics(user.user_id)
-      }
-      navigate("/")
+        sweetalert({title: "You won the game",
+        text: `You earned Rs. ${getAnswerPrice()}`,
+        icon: "success"})
+        if(user){
+          updateStatistics()
+          getStatistics(user.user_id)
+        }
+        navigate("/")     
     }
     if(wrong){
       sweetalert({title: "You lost the game",
-                  text: "The Answer is wrong!",
+                  text: istimeUp?"Time is up!":"The Answer is wrong!",
                   icon: "error"})
-      
+    
       if(user){
         updateStatistics()
         getStatistics(user.user_id)
@@ -159,22 +164,32 @@ const Game = () => {
   useEffect(() => {
     getQuestions()
     getScores() 
+    setLoading(false)    
+    
+    return () => {
+      clearTimeout(timer_one);
+      clearTimeout(timer_two);
+      clearTimeout(timer_three);
+    }
   },[])
 
   return (
-    <section id="game" className='wrapper'>
-      <div className='top'>
-        Timer...
-      </div>
-      <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
-      {getSingleQuestion()}   
-      {showScoreBoard && <Score setshowScoreBoard={setshowScoreBoard} questionNumber={questionNumber} scores={scores}/>}
-      <div className='bottom'>
-        <button>50 : 50</button>
-        <button><i className="fa-solid fa-arrows-rotate"></i></button>
-        <button><i className="fa-solid fa-lightbulb"></i></button>
-      </div>
-    </section>
+    loading ? <Loader/>:
+    (
+      questions.length > scores.length?
+      <section id="game" className='wrapper'>        
+        <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
+        <div className='middle'>       
+          <Score questionNumber={questionNumber} scores={scores}/>
+          <Questionaire questions={questions} setQuestions={setQuestions} questionNumber={questionNumber} 
+                        getAnswerPrice={getAnswerPrice} checkAnswer={checkAnswer} 
+                        correct={correct} setCorrect={setCorrect}
+                        showAnswer={showAnswer} setShowAnswer={setShowAnswer} setWrong={setWrong} setIsTimeUp={setIsTimeUp}
+                        setGamesPlayed={setGamesPlayed} setWrongAnswers={setWrongAnswers} setQuestionsAnswered={setQuestionsAnswered} setMoneyEarned={setMoneyEarned}/>
+        </div>
+      </section>
+      :<h3 style={{textAlign:"center"}}>Sorry...There is no enough questions to play!!!</h3>
+    )    
   )
 }
 

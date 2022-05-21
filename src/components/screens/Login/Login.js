@@ -26,7 +26,6 @@ const Login = () => {
             <Link to="/signup">Create Account</Link>
         </form>
     </section>
-
   )
 }
 

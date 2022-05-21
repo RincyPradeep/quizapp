@@ -1,21 +1,11 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 
 import './Score.css'
 import ScoreButton from '../ScoreButton/ScoreButton'
 
-const Score = ({setshowScoreBoard,questionNumber,scores}) => {
-
-  useEffect(() => {
-    const score_interval = setInterval(() => {
-      setshowScoreBoard(false)
-    }, 2000);
-    return () => clearInterval(score_interval);
-  }, []);
-
+const Score = ({questionNumber,scores}) => {
   return (
-    <div className='overlay'>
-    <section id="score" className='wrapper'>
-    <div className='scores'>
+    <section id="score" >
     {
       scores.map((obj)=>{
         let top
@@ -27,9 +17,7 @@ const Score = ({setshowScoreBoard,questionNumber,scores}) => {
           )
       })
     }
-    </div>
     </section>
-    </div>
   )
 }
 

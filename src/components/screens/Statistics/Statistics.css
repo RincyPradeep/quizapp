@@ -7,6 +7,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     padding:30px;
     background-color: #fff;
+    border-radius: 30px;
 }
 #statistics div.content a{
     margin-left: 90%;

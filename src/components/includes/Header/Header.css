@@ -18,7 +18,7 @@
     align-items: center;
 }
 #header div.nav-right ul li h3{
-
+    color:#04372e;
 }
 #header div.nav-right ul li h3.logoutbtn{
     cursor: pointer;
@@ -26,11 +26,13 @@
 #header div.nav-right ul li a{
     font-size: 18px;
     font-weight: 700;
+    color:#04372e;
 }
 #header div.nav-right ul li h3.total-price{
     margin-left: 30px;
     margin-right: 30px;
-    background-color: #0cbfd3;
+    color: #04372e;
+    border:1px solid #04372e;
     padding: 10px 20px;
     border-radius: 30px;
 }

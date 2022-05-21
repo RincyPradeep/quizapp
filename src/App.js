@@ -18,14 +18,14 @@ function App() {
       <Router>
         <AuthProvider>
           <StatisticsProvider>
-          <Header />
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/login' element={<Login />} />
-            <Route path="/game" element={<Game />} />
-            <Route path="/statistics/:id" element={<Statistics />} />
-          </Routes>
+            <Header />
+            <Routes>
+              <Route exact path="/" element={<Home />} />
+              <Route path='/signup' element={<Signup />} />
+              <Route path='/login' element={<Login />} />           
+              <Route path="/game" element={<Game />} />           
+              <Route path="/statistics/:id" element={<Statistics />} />
+            </Routes>
           </StatisticsProvider>
         </AuthProvider>
       </Router>

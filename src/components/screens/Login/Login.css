@@ -10,6 +10,7 @@
 	width:500px;
 	border:1px solid #e7e7e7;
 	padding:50px;
+	background-color: #fff;
 }
 #login form.content h1 {
 	margin-bottom: 50px;
@@ -34,7 +35,7 @@
 	border:1px solid #e7e7e7;
 	text-align: center;
 	border-radius: 8px;
-	background-color: #34a24a;
+	background-color: #025a4b;
 	color:#fff;
 	cursor: pointer;
 }

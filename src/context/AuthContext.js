@@ -2,7 +2,6 @@ import {createContext, useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
 
 import jwt_decode from "jwt-decode";
-import axios from 'axios'
 
 const AuthContext = createContext()
 
@@ -122,12 +121,12 @@ export const AuthProvider = ({children})=>{
             updateToken()
         }
 
-        let tenMinutes = 1000 * 60 * 10
+        let fourMinutes = 1000 * 60 * 4
         let interval =  setInterval(()=> {
             if(authTokens){
                 updateToken()
             }
-        }, tenMinutes)
+        }, fourMinutes)
         return ()=> clearInterval(interval)
     }, [authTokens, loading])
 

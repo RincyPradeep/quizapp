@@ -1,0 +1,63 @@
+#questionaire{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#questionaire div.question{
+    width:80%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+#questionaire div.question h2{
+    width:100%;
+    background-color: #fff;
+    color:#025a4b;
+    padding:10px;
+    margin:50px auto;
+    font-size: 26px;
+    border-radius: 40px;
+    text-align: center;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+#questionaire div.question h3{
+    font-size: 20px;
+    color:#000;
+}
+#questionaire div.question div.answers button{
+    width: 40%;
+    font-size: 18px;
+    font-weight: 600;
+    padding:10px 20px;
+    border-radius: 20px;
+    background-color: #fff;
+    color:#025a4b;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 20px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    text-align: left;
+}
+#questionaire div.question div.answers button:hover{
+    transform: scale(1.05);
+    box-shadow: 1px 3px 10px grey;
+    transition:  box-shadow .2s ease-in;
+}
+#questionaire div.question div.answers{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-top: 40px;
+}
+#questionaire div.question div.answers button span{
+    margin-right: 20px;
+    color:#025a4b;
+}
+.bg-green{
+    background-color: green !important;
+    color:#fff !important;
+}
+.bg-green span{
+    color:#fff !important;
+}

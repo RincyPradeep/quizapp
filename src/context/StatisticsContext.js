@@ -22,10 +22,9 @@ export const StatisticsProvider = ({children})=>{
           }
         }
         ).then((response)=>{
-          console.log("RESONSE:",response.data.data[0])
           setStatistics(response.data.data[0]);
         }).catch(err=>{
-          alert(err)
+          // alert(err)
       })
       }
 

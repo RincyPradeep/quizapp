@@ -1,23 +1,29 @@
 #score button{
-    width: 400px;
+    width: 275px;
     margin: 3px auto 0;
     outline:#fff;
-    border:none;
-    padding: 8px 24px;
-    background: linear-gradient(to right, #00f260, #0575e6);
+    padding: 6px 24px;
+    border:1px solid #fff;
     border-radius: 30px;
     font-size: 18px;
     font-weight: 500;
     display: flex;
     justify-content: space-between;
+
+    background: linear-gradient(#025a4b, #025a4b 50%, #2ecc71 50%, #2ecc71);
+    background-size: 100% 200%;
+    transition: background 1s;
 }
 #score button span{
     color:#fff;
 }
 #score button.top{
-    background: linear-gradient(to right, #56ab2f, #a8e063);
-    width: 500px;
+    background: linear-gradient(to right, #ee3407, #ebcf07);
+    width: 300px;
 }
 #score button.active{
-    background: linear-gradient(to right, #000000, #0f9b0f); 
+    background: green;
+    color:#fff;
+    
+    background-position: 100% 100%;
 }

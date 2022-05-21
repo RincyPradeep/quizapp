@@ -2,7 +2,9 @@ import React,{useContext} from 'react'
 import {Link} from 'react-router-dom';
 
 import './Signup.css'
+
 import AuthContext from '../../../context/AuthContext';
+
 
 const Signup = () => {
   let {createUser,errMessage} = useContext(AuthContext)
@@ -22,12 +24,12 @@ const Signup = () => {
 
                 <label htmlFor="username">Username</label>
                 <input type="text" placeholder="Enter your username" name="username" id="username" required />
-                <p className="error-message">{errMessage && errMessage["username"]}</p>
 
                 <label htmlFor="password">Password</label>
                 <input type="password" placeholder="Enter your password" name="password" id="password" required/>
-                <p className="error-message">{errMessage && errMessage["password"]}</p>
-    
+
+                <p className="error-message">{errMessage}</p>
+
                 <button type="submit">Create Account</button>
 
                 <Link to="/login">Login</Link>
