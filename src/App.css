@@ -10,6 +10,7 @@
     max-height:100vh;
     /* background-color: #9ff9ea; */
     background: linear-gradient(to right, #a8ff78, #78ffd6);
+    font-family: 'Rubik', sans-serif;
   }
   ul,
   ol {

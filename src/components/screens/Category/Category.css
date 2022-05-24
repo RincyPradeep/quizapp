@@ -1,0 +1,60 @@
+#category{
+    width: 100vw;
+    min-height:80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#category h1{
+    font-family: 'Kaushan Script', cursive;
+    font-size: 32px;
+}
+#category div.option-btns{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 50px 0;
+}
+#category div.option-btns button{
+    width:150px;
+    height:150px;
+    margin-right: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 10px;
+    border:none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+#category div.option-btns button.active{
+    background-color: #06af93;
+    color:#fff;
+}
+#category div.option-btns button:hover{
+    transition:  box-shadow .2s ease-in;
+    transform: scale(1.05);
+}
+#category div.option-btns button:focus{
+    background-color: #06af93;
+    color:#fff;
+}
+#category a.start-btn{
+    width:150px;
+    background-color: #025a4b;
+    color:#fff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 16px;
+    font-size: 24px;
+} 
+#category a.start-btn i{
+    margin-left:30px;
+    color:#fff;
+}
+#category a.start-btn i:hover{
+    transform: scale(1.09);
+}

@@ -14,3 +14,6 @@
     font-size: 30px;
     font-weight: 800;
 }
+#timer-container div.red{
+    color:red;
+}

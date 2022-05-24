@@ -5,9 +5,13 @@ import './Timer.css'
 const Timer = ({setIsTimeUp,setWrong,setGamesPlayed,setWrongAnswers,setQuestionsAnswered,setMoneyEarned}) => {
 
     const [counter,setCounter] = useState(60)
+    const [alert,setAlert] = useState(false)
 
     useEffect(()=>{
         const interval = setInterval(() => {
+            if(counter <= 10){
+                setAlert(true)
+            }
             if(counter === 0){
                 setIsTimeUp(true)
                 setWrong(true)
@@ -25,7 +29,7 @@ const Timer = ({setIsTimeUp,setWrong,setGamesPlayed,setWrongAnswers,setQuestions
 
   return (
     <section id='timer-container'>
-        <div className='timer'>
+        <div className={alert ? 'red timer' : 'timer'}>
             {counter}
         </div>
     </section>

@@ -1,8 +1,9 @@
 import React, { useState,useEffect,useContext } from 'react'
-import {useNavigate} from 'react-router-dom';
+import {useNavigate,useParams} from 'react-router-dom';
 
 import axios from 'axios'
 import sweetalert from 'sweetalert'
+import Confetti from 'react-confetti'
 
 import './Game.css'
 import Questionaire from '../Questionaire/Questionaire';
@@ -22,6 +23,7 @@ const Game = () => {
 
   const [loading,setLoading] = useState(true)
   const [istimeUp,setIsTimeUp] = useState(false)
+  const [showAnimation,setShowAnimation] = useState(false)
 
   const [questions,setQuestions] = useState([])
   const [questionNumber,setQuestionNumber] = useState(1)
@@ -42,10 +44,11 @@ const Game = () => {
   const [moneyEarned,setMoneyEarned] = useState(0)  
 
   const navigate = useNavigate();
+  let { id } = useParams();
 
   const getQuestions = () =>{
-    axios.get('http://localhost:8000/api/v1/quizzes/').then((response)=>{ 
-      let list = response.data
+    axios.get(`http://localhost:8000/api/v1/quizzes/category/${id}/`).then((response)=>{ 
+      let list = response.data.data
       list = list.sort(() => Math.random() - 0.5)  
       setQuestions(list)
     }).catch(err=>{
@@ -98,11 +101,12 @@ const Game = () => {
         if(questionNumber < scores.length){
           setQuestionNumber(questionNumber+1)
         }else{
+          setShowAnimation(true)
           timer_two = setTimeout(()=>{
           setFinish(true)
           setGamesPlayed(1)
           setGamesWon(1)
-          },2000)
+          },5000)
         }
       },1000)
     }
@@ -129,9 +133,9 @@ const Game = () => {
 
   useEffect(()=>{
     if(finish){
-        sweetalert({title: "You won the game",
-        text: `You earned Rs. ${getAnswerPrice()}`,
-        icon: "success"})
+        sweetalert({title: "You Won The Game.👏",
+        text: `💰You earned Rs. ${getAnswerPrice()}`,
+        })
         if(user){
           updateStatistics()
           getStatistics(user.user_id)
@@ -139,9 +143,10 @@ const Game = () => {
         navigate("/")     
     }
     if(wrong){
-      sweetalert({title: "You lost the game",
-                  text: istimeUp?"Time is up!":"The Answer is wrong!",
-                  icon: "error"})
+      sweetalert({title: "You lost the game😭",
+                  text: istimeUp?"Time is up!⏰":"The Answer is wrong!",
+                  
+                })
     
       if(user){
         updateStatistics()
@@ -150,9 +155,9 @@ const Game = () => {
       navigate("/")
     }
     if(leave){
-      sweetalert({title: "Good Decision",
+      sweetalert({title: "Good Decision👍",
       text: `You earned Rs. ${getAnswerPrice()}`,
-      icon: "success"})
+      })
       if(user){
         updateStatistics()
         getStatistics(user.user_id)
@@ -177,13 +182,15 @@ const Game = () => {
     loading ? <Loader/>:
     (
       questions.length > scores.length?
-      <section id="game" className='wrapper'>        
+      <section id="game" className='wrapper'> 
+        {showAnimation && <Confetti/>} 
+
         <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
-        <div className='middle'>       
+        <div className='middle'>   
           <Score questionNumber={questionNumber} scores={scores}/>
           <Questionaire questions={questions} setQuestions={setQuestions} questionNumber={questionNumber} 
                         getAnswerPrice={getAnswerPrice} checkAnswer={checkAnswer} 
-                        correct={correct} setCorrect={setCorrect}
+                        correct={correct} setCorrect={setCorrect} 
                         showAnswer={showAnswer} setShowAnswer={setShowAnswer} setWrong={setWrong} setIsTimeUp={setIsTimeUp}
                         setGamesPlayed={setGamesPlayed} setWrongAnswers={setWrongAnswers} setQuestionsAnswered={setQuestionsAnswered} setMoneyEarned={setMoneyEarned}/>
         </div>

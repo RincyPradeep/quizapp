@@ -11,12 +11,13 @@ import AuthContext from '../../../context/AuthContext';
 
 const Home = () => {
   let {user} = useContext(AuthContext)
+  
   return (
     <section id="home" className='wrapper'>
       <Zoom>
         <img src={home_image} alt="home" />
       </Zoom>
-      <Link to="/game" className='play'>PLAY</Link>
+      <Link to="/category" className='play'>PLAY</Link>
       {user &&
         <Link to={`/statistics/${user.user_id}`} className='statistics'><i className="fa-solid fa-chart-simple"></i></Link>
       }

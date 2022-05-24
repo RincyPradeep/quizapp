@@ -7,13 +7,14 @@ import GameOptions from '../GameOptions/GameOptions';
 import Timer from '../Timer/Timer';
 
 
-const Questionaire = ({questions,setQuestions,questionNumber,getAnswerPrice,
+const Questionaire = ({questions,setQuestions,questionNumber,getAnswerPrice, 
                       checkAnswer,correct,setCorrect,showAnswer,setShowAnswer,setWrong,setIsTimeUp,
                       setGamesPlayed,setWrongAnswers,setQuestionsAnswered,setMoneyEarned}) => {
  
   const [showSkipButton,setShowSkipButton] = useState(true)
   const [showAnswerButton,setShowAnswerButton] = useState(true)
   const [showFiftyButton,setShowFiftyButton] = useState(true)
+
 
   return (
     <section id='questionaire'>

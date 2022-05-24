@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 
 import './GameOptions.css' 
 
+
 const GameOptions = ({questions,setQuestions,questionId,showSkipButton,setShowSkipButton,
                       showAnswerButton,setShowAnswer,setShowAnswerButton,setCorrect,
                       question,showFiftyButton,setShowFiftyButton,checkAnswer}) => {
