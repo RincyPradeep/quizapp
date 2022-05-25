@@ -5,6 +5,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+	margin-top: 30px;
 }
 #category h1{
     font-family: 'Kaushan Script', cursive;
@@ -58,3 +59,22 @@
 #category a.start-btn i:hover{
     transform: scale(1.09);
 }
+
+
+@media all and (max-width:640px){
+    #category div.option-btns:nth-child(2n){
+        margin-right: -30px;
+    }
+}
+
+
+@media all and (max-width:480px){
+    #category div.option-btns button {
+        width: 95px;
+        height: 95px;
+    }
+    #category div.option-btns button{
+        font-size: 12px;
+    }
+}
+

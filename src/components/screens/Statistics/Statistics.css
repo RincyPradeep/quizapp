@@ -1,5 +1,9 @@
 #statistics{
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:80vh;
+	margin-top: 30px;
 }
 #statistics div.content{
     width:500px;
@@ -17,6 +21,7 @@
     font-size: 28px;
 }
 #statistics h1{
+    text-align: center;
     margin-bottom: 40px;
     font-size: 32px;
     font-family: 'Kaushan Script', cursive;
@@ -33,4 +38,23 @@
 }
 #statistics div.topics h3 i{
     margin-right: 10px;
+}
+
+
+@media all and (max-width:640px){
+    #statistics div.topics {
+        width: 360px;
+    }
+}
+
+@media all and (max-width:480px){
+    #statistics div.topics{
+        width:250px;
+    }
+    #statistics div.topics h3{
+        font-size: 14px;
+    }
+    #statistics h1{
+        font-size: 28px;
+    }
 }

@@ -1,5 +1,5 @@
 #score button{
-    width: 275px;
+    width: 100%;
     margin: 3px auto 0;
     outline:#fff;
     padding: 6px 24px;
@@ -19,11 +19,17 @@
 }
 #score button.top{
     background: linear-gradient(to right, #ee3407, #ebcf07);
-    width: 300px;
 }
 #score button.active{
     background: green;
     color:#fff;
     
     background-position: 100% 100%;
+}
+
+
+@media all and (max-width:980px){
+    #score button{
+    padding: 6px 10px;
+    }
 }

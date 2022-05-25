@@ -195,7 +195,7 @@ const Game = () => {
                         setGamesPlayed={setGamesPlayed} setWrongAnswers={setWrongAnswers} setQuestionsAnswered={setQuestionsAnswered} setMoneyEarned={setMoneyEarned}/>
         </div>
       </section>
-      :<h3 style={{textAlign:"center"}}>Sorry...There is no enough questions to play!!!</h3>
+      :<h3 style={{display:"flex",justifyContent:"center",alignItems:"center",height:"80vh"}}>Sorry...There is no enough questions to play!!!</h3>
     )    
   )
 }

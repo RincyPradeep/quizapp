@@ -21,3 +21,22 @@
 #game div.game-options button:last-child{
     margin-right: 0;
 }
+
+
+@media all and (max-width:768px){
+    #game div.game-options button{
+        width:80px;
+        height:80px;
+    }
+}
+
+@media all and (max-width:480px){
+    #game div.game-options button {
+        width: 70px;
+        height: 70px;
+        font-size: 14px;
+    }
+    #game div.game-options button i{
+        font-size: 22px;
+    }
+}
