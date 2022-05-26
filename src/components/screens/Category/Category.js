@@ -22,7 +22,7 @@ const Category = () => {
     <section id="category" className='wrapper'>
         <h1>Choose Category</h1>
         <div className='option-btns'>
-          <button onClick={()=>setCategoryId(0)} className={defaultOption &&'active'}>All</button>
+          <button onClick={()=>setCategoryId(0)} className={defaultOption ?'active' : ""}>All</button>
           {categories.map((category)=>{
             return(
               <button key={category.id} onClick={()=>{setCategoryId(category.id);setDefaultOption(false)}}>{category.name}</button>

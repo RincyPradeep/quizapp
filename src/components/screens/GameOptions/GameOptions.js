@@ -1,11 +1,15 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useContext} from 'react'
 
 import './GameOptions.css' 
 
+import GameContext from '../../../context/GameContext';
 
-const GameOptions = ({questions,setQuestions,questionId,showSkipButton,setShowSkipButton,
-                      showAnswerButton,setShowAnswer,setShowAnswerButton,setCorrect,
-                      question,showFiftyButton,setShowFiftyButton,checkAnswer}) => {
+
+const GameOptions = ({questionId,showSkipButton,setShowSkipButton,
+                      showAnswerButton,setShowAnswerButton,question,
+                      showFiftyButton,setShowFiftyButton,checkAnswer}) => {
+
+  let {questions,setQuestions,setCorrect,setShowAnswer} = useContext(GameContext)
 
   const fiftyFifty =()=>{
     let incorrect_answers=[];

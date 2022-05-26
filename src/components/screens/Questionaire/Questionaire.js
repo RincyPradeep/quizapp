@@ -1,4 +1,4 @@
-import React,{useState} from 'react'
+import React,{useState,useContext} from 'react'
 
 import { Zoom } from "react-awesome-reveal";
 
@@ -6,10 +6,12 @@ import './Questionaire.css'
 import GameOptions from '../GameOptions/GameOptions';
 import Timer from '../Timer/Timer';
 
+import GameContext from '../../../context/GameContext';
 
-const Questionaire = ({questions,setQuestions,questionNumber,getAnswerPrice, 
-                      checkAnswer,correct,setCorrect,showAnswer,setShowAnswer,setWrong,setIsTimeUp,
-                      setGamesPlayed,setWrongAnswers,setQuestionsAnswered,setMoneyEarned}) => {
+
+const Questionaire = ({getAnswerPrice, checkAnswer}) => {
+
+  let {questions,questionNumber,correct,showAnswer} = useContext(GameContext)
  
   const [showSkipButton,setShowSkipButton] = useState(true)
   const [showAnswerButton,setShowAnswerButton] = useState(true)
@@ -22,7 +24,7 @@ const Questionaire = ({questions,setQuestions,questionNumber,getAnswerPrice,
         if(index===questionNumber-1)
         return(
           <div className='question' key={question.id}>
-          <Timer setIsTimeUp={setIsTimeUp} setWrong={setWrong} setGamesPlayed={setGamesPlayed} setWrongAnswers={setWrongAnswers} setQuestionsAnswered={setQuestionsAnswered} setMoneyEarned={setMoneyEarned}/>
+          <Timer />
           <h2 id="price">&#x20B9; {getAnswerPrice()}</h2>
           <Zoom>
             <h3>{questionNumber}. {question.question}</h3>
@@ -42,11 +44,10 @@ const Questionaire = ({questions,setQuestions,questionNumber,getAnswerPrice,
 
             </div>
           </Zoom>
-          <GameOptions questions={questions} setQuestions={setQuestions} questionId={question.id} 
-                       showSkipButton={showSkipButton} setShowSkipButton={setShowSkipButton} 
-                       setShowAnswer={setShowAnswer} 
-                       showAnswerButton={showAnswerButton} setShowAnswerButton={setShowAnswerButton}
-                       setCorrect={setCorrect} question={question} showFiftyButton={showFiftyButton} 
+          <GameOptions questionId={question.id} showSkipButton={showSkipButton} 
+                       setShowSkipButton={setShowSkipButton} showAnswerButton={showAnswerButton} 
+                       setShowAnswerButton={setShowAnswerButton} 
+                       question={question} showFiftyButton={showFiftyButton} 
                        setShowFiftyButton={setShowFiftyButton} checkAnswer={checkAnswer}/>
         </div>   
         )

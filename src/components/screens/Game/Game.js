@@ -3,7 +3,7 @@ import {useNavigate,useParams} from 'react-router-dom';
 
 import axios from 'axios'
 import sweetalert from 'sweetalert'
-import Confetti from 'react-confetti'
+import Confetti from 'react-confetti' // party popper animation
 
 import './Game.css'
 import Questionaire from '../Questionaire/Questionaire';
@@ -12,6 +12,7 @@ import Loader from '../Loader/Loader';
 
 import AuthContext from '../../../context/AuthContext';
 import StatisticsContext from "../../../context/StatisticsContext";
+import GameContext from '../../../context/GameContext';
 
 
 const Game = () => {
@@ -19,29 +20,21 @@ const Game = () => {
   let timer_one,timer_two,timer_three
 
   let {user,authTokens} = useContext(AuthContext)
+
   let {getStatistics} = useContext(StatisticsContext)
 
-  const [loading,setLoading] = useState(true)
-  const [istimeUp,setIsTimeUp] = useState(false)
-  const [showAnimation,setShowAnimation] = useState(false)
+  let {questions,questionNumber,scores,setQuestions,setQuestionNumber,setScores,
+      setCorrect,setShowAnswer,isTimeUp,questionsAnswered,correctAnswers,
+      wrongAnswers,gamesPlayed,gamesWon,moneyEarned,setQuestionsAnswered,
+      setMoneyEarned,setCorrectAnswers,setGamesPlayed,setWrongAnswers,
+      setGamesWon,setWrong,wrong} = useContext(GameContext)
 
-  const [questions,setQuestions] = useState([])
-  const [questionNumber,setQuestionNumber] = useState(1)
-  const [scores,setScores] = useState([])
+
+  const [loading,setLoading] = useState(true)
+  const [showAnimation,setShowAnimation] = useState(false)
   
   const [leave,setLeave] = useState(false)
   const [finish,setFinish] = useState(false)
-  const [wrong,setWrong] = useState(false)
-
-  const [correct,setCorrect] = useState(false)
-  const [showAnswer,setShowAnswer] = useState(false)
-
-  const [questionsAnswered,setQuestionsAnswered] = useState(0)
-  const [correctAnswers,setCorrectAnswers] = useState(0)
-  const [wrongAnswers,setWrongAnswers] = useState(0)
-  const [gamesPlayed,setGamesPlayed] = useState(0)
-  const [gamesWon,setGamesWon] = useState(0)
-  const [moneyEarned,setMoneyEarned] = useState(0)  
 
   const navigate = useNavigate();
   let { id } = useParams();
@@ -144,8 +137,7 @@ const Game = () => {
     }
     if(wrong){
       sweetalert({title: "You lost the game😭",
-                  text: istimeUp?"Time is up!⏰":"The Answer is wrong!",
-                  
+                  text: isTimeUp?"Time is up!⏰":"The Answer is wrong!"                 
                 })
     
       if(user){
@@ -175,6 +167,12 @@ const Game = () => {
       clearTimeout(timer_one);
       clearTimeout(timer_two);
       clearTimeout(timer_three);
+      setWrong(false);
+      setQuestionNumber(1);
+      setQuestionsAnswered(0);
+      setCorrectAnswers(0)
+      setWrongAnswers(0)
+      setGamesWon(0)
     }
   },[])
 
@@ -187,12 +185,8 @@ const Game = () => {
 
         <button className='leave-btn' onClick={leaveGame}>LEAVE</button>
         <div className='middle'>   
-          <Score questionNumber={questionNumber} scores={scores}/>
-          <Questionaire questions={questions} setQuestions={setQuestions} questionNumber={questionNumber} 
-                        getAnswerPrice={getAnswerPrice} checkAnswer={checkAnswer} 
-                        correct={correct} setCorrect={setCorrect} 
-                        showAnswer={showAnswer} setShowAnswer={setShowAnswer} setWrong={setWrong} setIsTimeUp={setIsTimeUp}
-                        setGamesPlayed={setGamesPlayed} setWrongAnswers={setWrongAnswers} setQuestionsAnswered={setQuestionsAnswered} setMoneyEarned={setMoneyEarned}/>
+          <Score />
+          <Questionaire getAnswerPrice={getAnswerPrice} checkAnswer={checkAnswer} />
         </div>
       </section>
       :<h3 style={{display:"flex",justifyContent:"center",alignItems:"center",height:"80vh"}}>Sorry...There is no enough questions to play!!!</h3>

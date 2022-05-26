@@ -1,9 +1,15 @@
-import React from 'react'
+import React,{useContext} from 'react'
 
 import './Score.css'
 import ScoreButton from '../ScoreButton/ScoreButton'
 
-const Score = ({questionNumber,scores}) => {
+import GameContext from '../../../context/GameContext';
+
+
+const Score = () => {
+
+  let {scores} = useContext(GameContext)
+
   return (
     <section id="score" >
     {
@@ -13,7 +19,7 @@ const Score = ({questionNumber,scores}) => {
           top ="true"
         }
         return(
-          <ScoreButton key={obj.id} number={obj.number} price={obj.score} questionNumber={questionNumber} top={top}/>
+          <ScoreButton key={obj.id} number={obj.number} price={obj.score} top={top}/>
           )
       })
     }

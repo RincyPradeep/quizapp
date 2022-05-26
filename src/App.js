@@ -11,6 +11,7 @@ import Statistics from "./components/screens/Statistics/Statistics";
 
 import { AuthProvider } from './context/AuthContext';
 import { StatisticsProvider } from './context/StatisticsContext';
+import { GameProvider } from "./context/GameContext";
 
 
 function App() {
@@ -19,15 +20,17 @@ function App() {
       <Router>
         <AuthProvider>
           <StatisticsProvider>
-            <Header />
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route path='/signup' element={<Signup />} />
-              <Route path='/login' element={<Login />} />           
-              <Route path="/game/category/:id" element={<Game />} /> 
-              <Route path="/category" element={<Category />} />           
-              <Route path="/statistics/:id" element={<Statistics />} />
-            </Routes>
+            <GameProvider>
+              <Header />
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route path='/signup' element={<Signup />} />
+                <Route path='/login' element={<Login />} />           
+                <Route path="/game/category/:id" element={<Game />} /> 
+                <Route path="/category" element={<Category />} />           
+                <Route path="/statistics/:id" element={<Statistics />} />
+              </Routes>
+            </GameProvider>
           </StatisticsProvider>
         </AuthProvider>
       </Router>

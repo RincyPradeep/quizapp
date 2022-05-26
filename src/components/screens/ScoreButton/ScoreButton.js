@@ -1,8 +1,14 @@
-import React from 'react'
+import React,{useContext} from 'react'
 
 import './ScoreButton.css'
 
-const ScoreButton = ({number,price,top,questionNumber}) => {
+import GameContext from '../../../context/GameContext';
+
+
+const ScoreButton = ({number,price,top}) => {
+
+  let {questionNumber} = useContext(GameContext)
+
   return (
     <button className={top? "top" :"" || parseInt(number)===questionNumber-1? "active" :""}>
         <span>{number}</span>
