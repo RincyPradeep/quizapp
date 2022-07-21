@@ -14,7 +14,7 @@ export const StatisticsProvider = ({children})=>{
     
 
     const getStatistics = (id) =>{
-        axios.get(`http://localhost:8000/api/v1/quizzes/statistics/${id}/`,
+        axios.get(`https://rincy.pythonanywhere.com/api/v1/quizzes/statistics/${id}/`,
         {
           headers:{
           'Content-Type':'application/json',

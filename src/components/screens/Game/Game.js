@@ -40,7 +40,7 @@ const Game = () => {
   let { id } = useParams();
 
   const getQuestions = () =>{
-    axios.get(`http://localhost:8000/api/v1/quizzes/category/${id}/`).then((response)=>{ 
+    axios.get(`https://rincy.pythonanywhere.com/api/v1/quizzes/category/${id}/`).then((response)=>{ 
       let list = response.data.data
       list = list.sort(() => Math.random() - 0.5)  
       setQuestions(list)
@@ -50,7 +50,7 @@ const Game = () => {
   }
 
   const getScores = ()=>{
-    axios.get('http://localhost:8000/api/v1/quizzes/scores/').then((response)=>{
+    axios.get('https://rincy.pythonanywhere.com/api/v1/quizzes/scores/').then((response)=>{
       setScores(response.data);     
     }).catch(err=>{
       alert(err)
@@ -68,7 +68,7 @@ const Game = () => {
   }
 
   const updateStatistics = () =>{
-    axios.post(`http://localhost:8000/api/v1/quizzes/change-statistics/${user.user_id}/`,{
+    axios.post(`https://rincy.pythonanywhere.com/api/v1/quizzes/change-statistics/${user.user_id}/`,{
        "questions_answered" : questionsAnswered,"correct_answers" : correctAnswers, 
        "wrong_answers" : wrongAnswers,"games_played" : gamesPlayed,
        "games_won": gamesWon,"money_earned" : moneyEarned

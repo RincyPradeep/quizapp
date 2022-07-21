@@ -21,7 +21,7 @@ export const AuthProvider = ({children})=>{
 
     const createUser = async(e)=>{
         e.preventDefault()
-        let response = await fetch('http://localhost:8000/api/v1/auth/create/',{
+        let response = await fetch('https://rincy.pythonanywhere.com/api/v1/auth/create/',{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json'
@@ -46,7 +46,7 @@ export const AuthProvider = ({children})=>{
 
     let loginUser = async(e)=>{
         e.preventDefault()
-        let response = await fetch('http://localhost:8000/api/v1/auth/token/',{
+        let response = await fetch('https://rincy.pythonanywhere.com/api/v1/auth/token/',{
             method : "POST",
             headers : {
                 'Content-Type' : 'application/json'
@@ -77,7 +77,7 @@ export const AuthProvider = ({children})=>{
     }
 
     let updateToken = async ()=> {
-        let response = await fetch('http://localhost:8000/api/v1/auth/token/refresh/', {
+        let response = await fetch('https://rincy.pythonanywhere.com/api/v1/auth/token/refresh/', {
             method:'POST',
             headers:{
                 'Content-Type':'application/json'
