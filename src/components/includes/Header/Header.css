@@ -49,9 +49,9 @@
 
 @media all and (max-width:480px){
     #header div.nav-right ul li a{
-        font-size: 14px;
+        font-size: 16px;
     }
     #header div.nav-right ul li h3{
-        font-size: 14px;
+        font-size: 18px;
     }
 }
