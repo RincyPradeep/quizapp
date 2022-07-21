@@ -48,10 +48,17 @@
 }
 
 @media all and (max-width:480px){
+    #header div.nav-right{
+        width: 100%;
+        margin-top : 20px;
+    }
+    #header div.nav-right ul{
+        justify-content: flex-end;
+    }
     #header div.nav-right ul li a{
         font-size: 16px;
     }
     #header div.nav-right ul li h3{
-        font-size: 18px;
+        font-size: 16px;
     }
 }
