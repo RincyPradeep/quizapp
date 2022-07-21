@@ -42,8 +42,10 @@ const Game = () => {
   const getQuestions = () =>{
     axios.get(`https://rincy.pythonanywhere.com/api/v1/quizzes/category/${id}/`).then((response)=>{ 
       let list = response.data.data
-      list = list.sort(() => Math.random() - 0.5)  
-      setQuestions(list)
+      if(list){
+        list = list.sort(() => Math.random() - 0.5)  
+        setQuestions(list)
+      }
     }).catch(err=>{
       alert(err)
   })
