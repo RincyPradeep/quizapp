@@ -11,7 +11,7 @@ const Category = () => {
   const [defaultOption,setDefaultOption] = useState(true)
 
   useEffect(()=>{
-    axios.get('http://localhost:8000/api/v1/quizzes/categories/').then((response)=>{ 
+    axios.get('https://rincy.pythonanywhere.com/api/v1/quizzes/categories/').then((response)=>{ 
       setCategories(response.data)
     }).catch(err=>{
       alert(err)

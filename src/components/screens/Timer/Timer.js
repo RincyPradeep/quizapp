@@ -22,8 +22,6 @@ const Timer = () => {
                 setIsTimeUp(true)
                 setWrong(true)
                 setGamesPlayed(1)
-                // setWrongAnswers(1)
-                // setQuestionsAnswered((prev)=>prev+1)
                 setMoneyEarned(0)
                 clearInterval(interval)
             }else
